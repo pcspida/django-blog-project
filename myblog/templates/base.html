@@ -1,0 +1,177 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Blogging by Kwabena Ansah</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link href="/static/bootstrap/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body>
+<div id="wrapper">
+
+    <div id="header">
+        <div id="menu">
+            <ul>
+                <li class="current_page_item"><a href="#">Home</a></li>
+                <li><a href="/blog/posts">Blog</a></li>
+                <li><a href="#">Photos</a></li>
+                <li><a href="#">About</a></li>
+               <!--  {% if user.is_staff %}
+                <li><a href="{ url admin:index %}">Admin</a></li>
+                <li><a href="{ url admin:blog_post_add %}">Add post</a></li>
+                {% endif %} -->
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+        <!-- end #menu
+        <div id="search">
+            <form method="get" action="/blog/posts/search/">
+                <fieldset>
+                    <input type="text" name="s" id="search-text" size="15" />
+                    <input type="submit" id="search-submit" value="Search" />
+                </fieldset>
+            </form>
+        </div>
+        end #search -->
+
+    </div>
+    <!-- end #header -->
+    <div id="logo">
+        <h1><a href="#">Blogging </a></h1>
+        <p><em> by Kwabena Ansah</em></p>
+    </div>
+    <hr />
+    <!-- end #logo -->
+    <!-- end #header-wrapper -->
+
+    <div id="page">
+        <div id="content">
+            {% block content %}
+                     {% if post_list %}
+                        {% for post in post_list %}
+                             <div class="post">
+                                 <h2 class="title">{{ post.title }}</h2>
+                                 <p class="date">{{post.created}}</p>
+                                 <div class="entry">
+                                     <p>T{{post.body|slice:':160'}}</p>
+                                     <p class="links"><a href="#" class="comments">Comments ({{ post.comment_set.count }})</a> &nbsp;&nbsp;&nbsp; <a href="/blog/posts/{{ post.id }}/true" class="permalink">Full article</a></p>
+                                 </div>
+                             </div>
+                        {% endfor %}
+                     {% else %}
+                         <div class="post">
+                            <h2 class="title">About Me</h2>
+
+                                 <a href='/blog/posts'>Visit My Posts Page</a>
+
+                         </div>
+
+                     {% endif %}
+            {% endblock %}
+        </div>
+        <!-- end #content -->
+        <div id="sidebar">
+            <ul>
+                <li>
+                    <h2>About Me</h2>
+                    <p>My name is Kwabena Ansah</p>
+                </li>
+                {% block sidebar %}
+                    <li id="calendar">
+                        <h2>Calendar</h2>
+                        <div id="calendar_wrap">
+                            <table summary="Calendar">
+                                <caption>
+                                    July2012
+                                </caption>
+                                <thead>
+                                <tr>
+                                    <th abbr="Monday" scope="col" title="Monday">M</th>
+                                    <th abbr="Tuesday" scope="col" title="Tuesday">T</th>
+                                    <th abbr="Wednesday" scope="col" title="Wednesday">W</th>
+                                    <th abbr="Thursday" scope="col" title="Thursday">T</th>
+                                    <th abbr="Friday" scope="col" title="Friday">F</th>
+                                    <th abbr="Saturday" scope="col" title="Saturday">S</th>
+                                    <th abbr="Sunday" scope="col" title="Sunday">S</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <td abbr="February" colspan="3" id="prev"><a href="#" title="">&laquo; Feb</a></td>
+                                    <td class="pad">&nbsp;</td>
+                                    <td abbr="April" colspan="3" id="next"><a href="#" title="">Apr &raquo;</a></td>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <tr>
+                                    <td colspan="5" class="pad">&nbsp;</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>6</td>
+                                    <td>7</td>
+                                    <td>8</td>
+                                    <td>9</td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td id="today">11</td>
+                                    <td>12</td>
+                                    <td>13</td>
+                                    <td>14</td>
+                                    <td>15</td>
+                                    <td>16</td>
+                                </tr>
+                                <tr>
+                                    <td>17</td>
+                                    <td>18</td>
+                                    <td>19</td>
+                                    <td>20</td>
+                                    <td>21</td>
+                                    <td>22</td>
+                                    <td>23</td>
+                                </tr>
+                                <tr>
+                                    <td>24</td>
+                                    <td>25</td>
+                                    <td>26</td>
+                                    <td>27</td>
+                                    <td>28</td>
+                                    <td>29</td>
+                                    <td>30</td>
+                                </tr>
+                                <tr>
+                                    <td>31</td>
+                                    <td class="pad" colspan="6">&nbsp;</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <li>
+                        <h2>Topics</h2>
+                        <ul>
+
+                        </ul>
+                    </li>
+                {% endblock %}
+            </ul>
+        </div>
+        <!-- end #sidebar -->
+        <div style="clear: both;">&nbsp;</div>
+    </div>
+    <!-- end #page -->
+
+    <div id="footer">
+        <p>Copyright (c) 2012 www.pcobby.com. All rights reserved.</p>
+    </div>
+    <!-- end #footer -->
+</div>
+</body>
+</html>

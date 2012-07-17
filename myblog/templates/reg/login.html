@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    {{ logged_in }}
+    {% if logged_in %}
+        <h3>You are already logged in!!!</h3>
+        <div><a href="/reg/logout">Logout</a></div>
+    {% else %}
+    <form action="." method="post">
+        {{ form.as_p }}
+        <input type="submit" value="Login" />
+
+    </form>
+    {% endif %}
+{% endblock %}

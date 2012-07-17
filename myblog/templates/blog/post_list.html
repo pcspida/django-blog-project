@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+        {% if posts %}
+            {% for post in posts.object_list %}
+                <div class="post">
+                    <h2 class="title">{{ post.title }}</h2>
+                    <p class="date">{{post.created}}</p>
+                    <div class="entry">
+                        <p>T{{post.body|slice:':60'}}</p>
+                        <p class="links"><a href="" class="comments">Comments ({{ post.comment_set.count }})</a> &nbsp;&nbsp;&nbsp; <a href="/blog/posts/{{ post.id }}/true" class="permalink">Full article</a></p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            No Posts Yet!!!
+        {% endif %}
+        <!-- Next/Prev page links  -->
+        {% if posts.object_list and posts.paginator.num_pages > 1 %}
+            <div class="post">
+                <div class="pagination" style="margin-top: 40px; margin-left: 20px; ">
+                    <span class="step-links">
+                        {% if posts.has_previous %}
+                            <a href= "?page={{ posts.previous_page_number }}">newer entries &lt;&lt; </a>
+                        {% endif %}
+
+                        <span class="current">
+                            &nbsp;Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+                        </span>
+
+                        {% if posts.has_next %}
+                            <a href="?page={{ posts.next_page_number }}"> &gt;&gt; older entries</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        {% endif %}
+
+{% endblock %}

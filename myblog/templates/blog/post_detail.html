@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+	<h2><b>Post:</b> {{post.title }}</h2>
+<p><b>Content:</b> {{ post.body }}</p>
+<p><b>Created:</b> {{ post.created }}</p>
+<p><b>Last Updated:</b> {{ post.updated }}</p>
+{% if comments %}
+<table class="table table-striped table-bordered table-condensed">
+	<tr><th>Author</th><th colspan="2">Comments</th></tr>
+{% for com in comments %}
+<tr><td>{{com.author}} </td><td>{{com.body}}</td><td>
+{% if user.session.username == com.author %}
+    <a href="/blog/comments/{{ com.id }}/edit">
+        Edit Comment
+    </a>
+    {% else %}
+    Edit Comment
+    {% endif %}
+</td></tr>
+{% endfor %}
+</table>
+{% endif %}
+    {% if user.session.username %}
+    <h3>New comment:</h3>
+        <div id="addc">Add a comment</div>
+        <!-- Comment form  -->
+        <form action="" method="POST">{% csrf_token %}
+            <div id="cform">
+                Name: {{ form.author }}
+                <p>{{ form.body|linebreaks }}</p>
+            </div>
+            <div id="submit"><input type="submit" value="Submit"></div>
+        </form>
+    {% endif %}
+{% endblock %}
+
